@@ -158,8 +158,8 @@ and use the data in your template as subscribers or via Angular `async` pipe:
   
 ### <a name="methods"></a>4. Methods
   
-#### StateModel class
-##### protected getSubject(eventName: string): ReplaySubject<T>
+### StateModel class
+#### protected getSubject(eventName: string): ReplaySubject<T>
 Retrieves the `ReplaySubject` object associated with the given `eventName`. 
 If there is no `ReplaySubject` registered yet, it will create one.   
   
@@ -169,7 +169,7 @@ If there is no `ReplaySubject` registered yet, it will create one.
 *Return:*  
 Method returns the `ReplaySubject` object associated to the given `eventName`.  
   
-##### protected set(eventName: string, data: T): void
+#### protected set(eventName: string, data: T): void
 Set/publish new `data` through the `ReplaySubject` object associated with 
 the given `eventName` parameter.
   
@@ -180,7 +180,7 @@ the given `eventName` parameter.
 *Return:*  
 Method returns nothing - `void`.  
   
-##### protected get(eventName: string): ReplaySubject<T>
+#### protected get(eventName: string): ReplaySubject<T>
 Retrieves the `ReplaySubject` object associated with the given `eventName`.
   
 *Parameters:*  
