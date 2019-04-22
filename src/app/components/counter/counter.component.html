@@ -1,0 +1,13 @@
+<div>
+  <h4>Counter value: {{counterValue}}</h4>
+  <input type="button" value="Increment" (click)="increment()">
+  <input type="button" value="Decrement" (click)="decrement()">
+
+  <h4>
+    Counter value (with async pipe): {{(counter$ | async).value}}
+  </h4>
+
+  <h4 *ngIf="counter$ | async as counter">
+    Counter value (with async pipe and ngIf AS syntax ): {{counter.value}}
+  </h4>
+</div>

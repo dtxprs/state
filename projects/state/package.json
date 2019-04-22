@@ -1,6 +1,40 @@
 {
   "name": "state",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "author": {
+    "name": "dtxprs",
+    "email": "ridderdev@gmail.com",
+    "url": "https://github.com/dtxprs"
+  },
+  "repository": "https://github.com/dtxprs/state",
+  "homepage": "https://github.com/dtxprs/state",
+  "bugs": {
+    "url": "https://github.com/dtxprs/state/issues",
+    "email": "ridderdev@gmail.com"
+  },
+  "contributors": [],
+  "engines": {},
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/dtxprs/state/blob/master/LICENSE"
+    }
+  ],
+  "keywords": [
+    "angular",
+    "angular2",
+    "angular4",
+    "angular5",
+    "angular6",
+    "angular7",
+    "rxjs",
+    "state",
+    "state management",
+    "store",
+    "StateManagement",
+    "service"
+  ],
   "peerDependencies": {
     "@angular/core": "^7.2.0",
     "rxjs": "~6.3.3"
