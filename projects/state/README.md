@@ -5,9 +5,10 @@ State model
 3. [Usage](#usage)
 4. [Methods](#methods)
 5. [Git repository](#git)
-6. [Build](#build)
-7. [Publish to npm](#publish)
-8. [Version](#version)
+6. [Run tests](#testing)
+7. [Build](#build)
+8. [Publish to npm](#publish)
+9. [Version](#version)
 
 ### <a name="description"></a>1. Description
 `StateModel` and `StateComponent` are a couple of parent classes used for 
@@ -95,8 +96,8 @@ export class StoreService {
 ```
   
 In the components where you want to retrieve the state data via subscribers, don't forget to 
-extend the `StateComponent` parent class, in order to automatically unsubscribe 
-the subscribers list:
+extend the `StateComponent` parent class and use `this.autoUnsubscribe()` method to 
+automatically unsubscribe the subscribers list:
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
@@ -154,43 +155,78 @@ and use the data in your template as subscribers or via Angular `async` pipe:
 </div>
 ```
   
-Full usage example can be found here: [https://github.com/dtxprs/state](https://github.com/dtxprs/state)
-  
   
 ### <a name="methods"></a>4. Methods
   
-#### transform(value: string, sanitizeBeforehand?: boolean): string
-Replace the new line characters `\n` in a string with 
-the `<br />` tag
-Bypass security and trust the given value to be safe HTML. 
-The sanitizer will leave safe HTML intact and will replace new line 
-character `\n` with the `<br />` tag.  
-
-**WARNING:** in Angular version `2.x`, calling this method with 
-untrusted user data exposes your application to XSS security risks!
+### StateModel class
+#### protected getSubject(eventName: string): ReplaySubject<T>
+Retrieves the `ReplaySubject` object associated with the given `eventName`. 
+If there is no `ReplaySubject` registered yet, it will create one.   
   
 *Parameters:*  
-**value** - string where to replace `\n` with `<br />` and not to 
-escape the HTML tags.  
-**sanitizeBeforehand** - optional boolean parameter which allows you 
-optionally to sanitize the `value` string. Parameter is available only 
-for Angular `4+`.  
+**eventName** - name of the event to which to associate an `ReplaySubject` object.  
   
 *Return:*  
-Method returns the new string containing `<br />` tag instead of `\n`.  
+Method returns the `ReplaySubject` object associated to the given `eventName`.  
+  
+#### protected set(eventName: string, data: T): void
+Set/publish new `data` through the `ReplaySubject` object associated with 
+the given `eventName` parameter.
+  
+*Parameters:*  
+**eventName** - name of the event associated with the `ReplaySubject` object.
+**data** - data which should be published via `ReplaySubject` object.  
+  
+*Return:*  
+Method returns nothing - `void`.  
+  
+#### protected get(eventName: string): ReplaySubject<T>
+Retrieves the `ReplaySubject` object associated with the given `eventName`.
+  
+*Parameters:*  
+**eventName** - name of the event associated with the `ReplaySubject` object.
+  
+*Return:*  
+Method returns the `ReplaySubject` object associated to the given `eventName`.
+  
+  
+### StateComponent class
+#### protected autoUnsubscribe(subscription: Subscription): void
+Add the `subscription` parameter into the subscription list `rxSubscriptions$` 
+which will be unsubscribed and destroyed on `ngOnDestroy()` lifecycle hook event.   
+  
+*Parameters:*  
+**subscription** - subscription which should be added into the list.  
+  
+*Return:*  
+Method returns nothing - `void`.  
+  
+#### public ngOnDestroy(): void
+Unsubscribe all the subscriptions from the `rxSubscriptions$` list and destroy them 
+on `ngOnDestroy()` lifecycle hook event.   
+  
+*Return:*  
+Method returns nothing - `void`.  
   
   
 ### <a name="git"></a>5. Git repository
 [https://github.com/dtxprs/state](https://github.com/dtxprs/state)
 
-### <a name="build"></a>6. Build
+### <a name="testing"></a>6. Run tests
+To run the unit tests, use this command:
+```
+ng test --code-coverage --project=state
+```
+Current test coverage is 100%!
+
+### <a name="build"></a>7. Build
 To build the final package run this command:
 ```
 ng build state
 ```
 The build process will generate the packed sources into the `dist` folder.  
 
-### <a name="publish"></a>7. Publish to npm
+### <a name="publish"></a>8. Publish to npm
 To publish the new version to `npm`, go into the `dist` folder:
 ```
 cd ./dist/state
@@ -200,5 +236,5 @@ and publish it to npm:
 npm publish
 ```
 
-### <a name="version"></a>8. Version
+### <a name="version"></a>9. Version
 1.0.0

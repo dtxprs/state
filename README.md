@@ -190,6 +190,25 @@ Retrieves the `ReplaySubject` object associated with the given `eventName`.
 Method returns the `ReplaySubject` object associated to the given `eventName`.
   
   
+### StateComponent class
+#### protected autoUnsubscribe(subscription: Subscription): void
+Add the `subscription` parameter into the subscription list `rxSubscriptions$` 
+which will be unsubscribed and destroyed on `ngOnDestroy()` lifecycle hook event.   
+  
+*Parameters:*  
+**subscription** - subscription which should be added into the list.  
+  
+*Return:*  
+Method returns nothing - `void`.  
+  
+#### public ngOnDestroy(): void
+Unsubscribe all the subscriptions from the `rxSubscriptions$` list and destroy them 
+on `ngOnDestroy()` lifecycle hook event.   
+  
+*Return:*  
+Method returns nothing - `void`.  
+  
+  
 ### <a name="git"></a>5. Git repository
 [https://github.com/dtxprs/state](https://github.com/dtxprs/state)
 
