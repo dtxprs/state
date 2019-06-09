@@ -1,9 +1,7 @@
 import { StateModel } from './state-model';
-import { StateComponent } from './state.component';
 
 describe('StateModel', () => {
   let model;
-  const event1 = 'e1';
 
   beforeEach(() => {
     model = new StateModel();
@@ -16,17 +14,17 @@ describe('StateModel', () => {
 
   it('set should add new subject into the list', () => {
     // initially subjects should be an empty object
-    expect(model['subjects']).toEqual(jasmine.objectContaining({}));
+    expect(model['subject']).not.toBeTruthy();
 
-    model['set'](event1, true);
-    expect(model['subjects'][event1]).toBeTruthy();
+    model['set'](true);
+    expect(model['subject']).toBeTruthy();
   });
 
   it('get should return the subject', () => {
     // initially subjects should be an empty object
-    expect(model['subjects']).toEqual(jasmine.objectContaining({}));
+    expect(model['subject']).not.toBeTruthy();
 
-    const subjectObject = model['get'](event1);
+    const subjectObject = model['get']();
     expect(subjectObject).toBeTruthy();
   });
 });

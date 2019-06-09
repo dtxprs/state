@@ -97,7 +97,7 @@ automatically unsubscribe the subscribers list:
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { StateComponent } from '../../../../projects/state/src/lib/state.component';
+import { StateComponent } from '@ridder/state';
 import { CounterState } from '../../model/counter.service';
 import { StoreService } from '../../model/store.service';
 
@@ -225,4 +225,4 @@ npm publish --access public
 ```
 
 ### <a name="version"></a>9. Version
-1.0.1
+1.0.2
