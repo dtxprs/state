@@ -1,26 +1,22 @@
 import { ReplaySubject } from 'rxjs/index';
 
-interface SubjectsType<T> {
-  [key:string] : ReplaySubject<T>
-}
-
 export class StateModel<T> {
-  protected subjects: SubjectsType<T> = {};
+  protected subject: ReplaySubject<T>;
 
-  protected getSubject(eventName: string): ReplaySubject<T> {
-    if (!this.subjects[eventName]) {
-      this.subjects[eventName] = new ReplaySubject(1);
+  protected getSubject(): ReplaySubject<T> {
+    if (!this.subject) {
+      this.subject = new ReplaySubject(1);
     }
 
-    return this.subjects[eventName];
+    return this.subject;
   }
 
-  protected set(eventName: string, data: T): void {
-    this.getSubject(eventName).next(data);
+  protected set(data: T): void {
+    this.getSubject().next(data);
   }
 
-  protected get(eventName: string): ReplaySubject<T> {
-    return this.getSubject(eventName);
+  protected get(): ReplaySubject<T> {
+    return this.getSubject();
   }
 
 }

@@ -28,14 +28,10 @@ in your application and extend `StateModel<T>`:
 ```typescript
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { StateModel } from '../../../projects/state/src/lib/state-model';
+import { StateModel } from '@ridder/state';
 
 export interface CounterState {
   value: number;
-}
-
-const enum EVENTS {
-  STATE = 'COUNTER.STATE'
 }
 
 @Injectable({
@@ -57,12 +53,12 @@ export class CounterService extends StateModel<CounterState> {
   private state: CounterState = {...this.initState};
 
   public getState(): ReplaySubject<CounterState> {
-    return this.get(EVENTS.STATE);
+    return this.get();
   }
 
   public setState(properties: CounterState): void {
     this.state = {...this.state, ...properties};
-    this.set(EVENTS.STATE, this.state);
+    this.set(this.state);
   }
 
   public resetState(): void {
@@ -159,32 +155,24 @@ and use the data in your template as subscribers or via Angular `async` pipe:
 ### <a name="methods"></a>4. Methods
   
 ### StateModel class
-#### protected getSubject(eventName: string): ReplaySubject<T>
-Retrieves the `ReplaySubject` object associated with the given `eventName`. 
-If there is no `ReplaySubject` registered yet, it will create one.   
-  
-*Parameters:*  
-**eventName** - name of the event to which to associate an `ReplaySubject` object.  
+#### protected getSubject(): ReplaySubject<T>
+Creates and returns the `ReplaySubject` object for the current state model.   
   
 *Return:*  
-Method returns the `ReplaySubject` object associated to the given `eventName`.  
+Method returns the `ReplaySubject` object.  
   
-#### protected set(eventName: string, data: T): void
+#### protected set(data: T): void
 Set/publish new `data` through the `ReplaySubject` object associated with 
-the given `eventName` parameter.
+the current state model.
   
 *Parameters:*  
-**eventName** - name of the event associated with the `ReplaySubject` object.
 **data** - data which should be published via `ReplaySubject` object.  
   
 *Return:*  
 Method returns nothing - `void`.  
   
-#### protected get(eventName: string): ReplaySubject<T>
-Retrieves the `ReplaySubject` object associated with the given `eventName`.
-  
-*Parameters:*  
-**eventName** - name of the event associated with the `ReplaySubject` object.
+#### protected get(): ReplaySubject<T>
+Retrieves the `ReplaySubject` object associated with the current state model.
   
 *Return:*  
 Method returns the `ReplaySubject` object associated to the given `eventName`.
@@ -233,7 +221,7 @@ cd ./dist/state
 ```
 and publish it to npm:
 ```
-npm publish
+npm publish --access public
 ```
 
 ### <a name="version"></a>9. Version

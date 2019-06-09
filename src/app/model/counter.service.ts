@@ -6,10 +6,6 @@ export interface CounterState {
   value: number;
 }
 
-const enum EVENTS {
-  STATE = 'COUNTER.STATE'
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -29,12 +25,12 @@ export class CounterService extends StateModel<CounterState> {
   private state: CounterState = {...this.initState};
 
   public getState(): ReplaySubject<CounterState> {
-    return this.get(EVENTS.STATE);
+    return this.get();
   }
 
   public setState(properties: CounterState): void {
     this.state = {...this.state, ...properties};
-    this.set(EVENTS.STATE, this.state);
+    this.set(this.state);
   }
 
   public resetState(): void {
