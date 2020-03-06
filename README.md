@@ -225,4 +225,4 @@ npm publish --access public
 ```
 
 ### <a name="version"></a>9. Version
-1.0.3
+1.0.4
