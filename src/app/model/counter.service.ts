@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+
+import { Observable } from 'rxjs';
+
 import { StateModel } from '../../../projects/state/src/lib/state-model';
 
 export interface CounterState {
@@ -24,7 +26,7 @@ export class CounterService extends StateModel<CounterState> {
 
   private state: CounterState = {...this.initState};
 
-  public getState(): ReplaySubject<CounterState> {
+  public getState(): Observable<CounterState> {
     return this.get();
   }
 
