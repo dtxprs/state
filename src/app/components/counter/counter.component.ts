@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+
+import { Observable } from 'rxjs';
+
 import { StateComponent } from '../../../../projects/state/src/lib/state.component';
 import { CounterState } from '../../model/counter.service';
 import { StoreService } from '../../model/store.service';
@@ -10,7 +12,7 @@ import { StoreService } from '../../model/store.service';
   styleUrls: ['./counter.component.css']
 })
 export class CounterComponent extends StateComponent implements OnInit {
-  private counter$: ReplaySubject<CounterState>; // used for async pipe
+  private counter$: Observable<CounterState>; // used for async pipe
   private counterValue: number; // used as subscriber
 
   constructor(private store: StoreService) {
